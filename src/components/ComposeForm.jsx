@@ -4,8 +4,12 @@ import { useState } from 'react';
 import Avatar from './Avatar';
 import './ComposeForm.css';
 
+import contracts from '../contracts';
+import web3 from '../web3';
+
 function ComposeForm({ onSubmit }) {
   const [editorValue, setEditorValue] = useState('');
+  const [tweetStatus, setTweetStatus] = useState(0);
 
   const handleEditorValueChange = (e) => {
     setEditorValue(e.target.value);
@@ -14,9 +18,29 @@ function ComposeForm({ onSubmit }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onSubmit(editorValue);
-    setEditorValue('');
+    const sendTweet = async () => {
+      const accounts = await web3.eth.getAccounts();
+      await contracts.methods.tweet(editorValue).send({
+        from: accounts[0]
+      });
+      setTweetStatus(0)
+      setEditorValue('');
+    }
+    setTweetStatus(1)
+    sendTweet()
   };
+
+  if (tweetStatus == 1) {
+    return (
+      <form className="compose-form" onSubmit={handleSubmit}>
+      <div className="compose-form-container">
+        <Avatar />
+        <h1>Tweet is sending..</h1>
+      </div>
+      <button className="compose-form-submit" disabled>Tweet</button>
+    </form>
+    )
+  }
 
   return (
     <form className="compose-form" onSubmit={handleSubmit}>
