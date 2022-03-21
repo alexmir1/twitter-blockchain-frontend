@@ -1,0 +1,19 @@
+.auth-card {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.meta-button {
+    left: 50%;
+    transform: translate(-50%, 0%);
+    position: relative;
+    display: inline-block;
+}
+
+.meta-img {
+    max-width: 100%;
+    max-height: 100%;
+}

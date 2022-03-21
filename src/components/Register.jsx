@@ -10,7 +10,7 @@ import web3 from '../web3';
 export default function Register() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [registred, setRegistred] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('Looks like you are new here. Register now');
   const onSubmit = data => {
       console.log(data);
       const register = async () => {
@@ -31,12 +31,12 @@ export default function Register() {
   return (
     // TODO: check if registred
     <div>
-        <p>
+        <p className='meta-button'>
             {message}
         </p>
         <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="text" placeholder="Username" {...register("Username", {required: true, maxLength: 20, pattern: /^(?=[a-zA-Z0-9._]{3,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/i})} />
-        <input type="text" placeholder="Public Name" {...register("Public Name", {required: true})} />
+        <input type="text" placeholder="Username*" {...register("Username", {required: true})} />
+        <input type="text" placeholder="Public Name*" {...register("Public Name", {required: true})} />
 
         <input type="submit" />
         </form>
