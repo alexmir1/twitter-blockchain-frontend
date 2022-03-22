@@ -31,7 +31,7 @@ export default function Register() {
   return (
     // TODO: check if registred
     <div>
-        <p className='meta-button'>
+        <p>
             {message}
         </p>
         <form onSubmit={handleSubmit(onSubmit)}>

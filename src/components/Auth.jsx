@@ -26,7 +26,8 @@ function MetaButton() {
 
 export default function Auth() {
     return <div className="auth-card">
-        <h1>Welcome to persistent decentralized twitter</h1>
+        <h1>Stoner</h1>
+        <h2>Set tweets in stone</h2>
         <div className="meta-button"><MetaButton/></div>
     </div>
 }

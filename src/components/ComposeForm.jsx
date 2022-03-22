@@ -24,6 +24,7 @@ function ComposeForm({ onSubmit }) {
         from: accounts[0]
       });
       setTweetStatus(0)
+      onSubmit(editorValue);
       setEditorValue('');
     }
     setTweetStatus(1)

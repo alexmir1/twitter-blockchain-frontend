@@ -1,3 +1,4 @@
+import { useConnectedMetaMask } from 'metamask-react';
 import React, { useState } from 'react';
 import ComposeForm from './ComposeForm';
 import Timeline from './Timeline';
@@ -6,19 +7,22 @@ import { nanoid } from 'nanoid';
 import './App.css';
 
 import initialTweets from '../tweets.json';
-
-const CURRENT_USER = 'nicotsou';
+import contracts from '../contracts';
+import web3 from '../web3';
 
 function Feed() {
   const [tweets, setTweets] = useState(initialTweets);
   const [favorites, setFavorites] = useState([]);
 
-  const handlePostTweet = (content) => {
+  const handlePostTweet = async (content) => {
+    const accounts = await web3.eth.getAccounts();
+    const user_id = await contracts.methods.getUserId(accounts[0]).call();
+    const profile = await contracts.methods.getUserProfile(user_id).call();
     const newTweet = {
       content,
       id: nanoid(),
       created_on: Date(Date.now()),
-      user: CURRENT_USER,
+      user: web3.utils.hexToAscii(profile.username),
       comments_count: 0,
       retweets_count: 0,
       favorites_count: 0,
